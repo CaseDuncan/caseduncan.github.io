@@ -18,6 +18,9 @@ This post documents the forensic analysis of a network capture file (`dns_exfil.
 ## PCAP Overview
 
 The capture file, `dns_exfil.pcap`, was analyzed using Wireshark and `tshark` on a Kali Linux system. The `.pcap` contains outbound DNS queries from a single internal IP address. The traffic pattern suggests potential data exfiltration via DNS tunneling.
+<p align="center">
+  <img src="../assets/wireshark1.png" alt="TShark Output" width="700"/>
+</p>
 
 Initial filtering of DNS traffic was done using the following command:
 
@@ -58,14 +61,10 @@ The key information from the packet is:
 - **Protocol**: DNS (UDP port 53)
 - **Query Type**: A (host address)
 
-This tells us that the machine with IP address `192.168.1.74` is initiating the outbound DNS queries that contain encoded subdomains. The response from `8.8.8.8` confirms that the query occurred and that the name does not resolve — which is typical for DNS tunneling payloads sent to a controlled domain.
+This tells us that the machine with IP address `192.168.1.74` is initiating the outbound DNS queries that contain encoded subdomains. The response from `8.8.8.8` confirms that the query occurred and that the name does not resolve which is typical for DNS tunneling payloads sent to a controlled domain.
 
 Therefore, based on the packet details and query behavior, the exfiltrating host is:
-➡️ 192.168.1.74
-
-pgsql
-Copy
-Edit
+192.168.1.74
 
 
 This IP represents the compromised internal system used by the attacker to tunnel data out of the network via DNS requests.
