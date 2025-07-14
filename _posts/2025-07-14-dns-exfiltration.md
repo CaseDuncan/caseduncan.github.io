@@ -19,7 +19,7 @@ This post documents the forensic analysis of a network capture file (`dns_exfil.
 The capture file, `dns_exfil.pcap`, was analyzed using Wireshark and `tshark` on a Kali Linux system. The `.pcap` contains outbound DNS queries from a single internal IP address. The traffic pattern suggests potential data exfiltration via DNS tunneling.
 
 <p align="center">
-  <img src="../assets/wireshark1.png" alt="TShark Output" width="700"/>
+  <img src="../assets/wireshark1.png" alt="TShark Output4" width="700"/>
 </p>
 
 Initial filtering of DNS traffic was done using the following command:
@@ -37,7 +37,7 @@ The following command was used to extract all DNS query names from the capture:
 tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name > queries.txt
 
 <p align="center">
-  <img src="../assets/dns_query1" alt="TShark Output" width="700"/>
+  <img src="../assets/dns_query1" alt="TShark Output1" width="700"/>
 </p>
 
 This command reads the dns_exfil.pcap file using -r, applies a display filter -Y to include only DNS queries (dns.qry.name), outputs only the DNS query name field `-e dns.qry.name`, and saves the output to queries.txt.
@@ -45,7 +45,7 @@ This command reads the dns_exfil.pcap file using -r, applies a display filter -Y
 To view the extracted DNS queries:
 
 <p align="center">
-  <img src="../assets/dns_query2" alt="TShark Output" width="700"/>
+  <img src="../assets/dns_query2" alt="TShark Output2" width="700"/>
 </p>
 
 Each query targets the domain crazzyc4t.com, but the subdomain appears to be Base64-encoded. The encoded string Q1RGe1RVTk4zTEwxTkdfRE5TX0wxSzNfNF9QUjB9 is likely the exfiltrated payload embedded within DNS queries.
@@ -65,7 +65,7 @@ To determine which machine on the network was responsible for the DNS exfiltrati
 Using Wireshark, I examined packet number 1 in the capture. This packet is a standard DNS query requesting the A record for the suspicious domain:
 
 <p align="center">
-  <img src="../assets/attacker_ip" alt="wireshark output" width="700"/>
+  <img src="../assets/attacker_ip" alt="wireshark output3" width="700"/>
 </p>
 
 The key information from the packet is:
