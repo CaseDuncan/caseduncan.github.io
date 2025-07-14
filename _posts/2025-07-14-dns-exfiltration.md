@@ -4,15 +4,19 @@ date: 2025-07-14
 category: Cybersecurity
 tags: [dns, exfiltration, wireshark, tshark, ctf]
 ---
-
 # DNS Exfiltration Analysis
+
+
+<p align="center">
+  <img src="../assets/tunnel.jpg" alt="TShark Output1" width="700"/>
+</p>
+
 
 ## Introduction
 
 DNS is a foundational internet protocol used to resolve domain names into IP addresses. However, due to its widespread trust and typically unmonitored nature, DNS is also a prime target for data exfiltration. In DNS tunneling, attackers encode and embed data within DNS queries to bypass firewalls and network monitoring systems.
 
 This post documents the forensic analysis of a network capture file (`dns_exfil.pcap`) containing suspicious DNS traffic. The objective is to investigate signs of exfiltration, identify the compromised internal host, reconstruct the exfiltrated data, and determine the attacker's infrastructure to solve ctf challenges.
-
 
 ## PCAP Overview
 
@@ -24,7 +28,6 @@ The capture file, `dns_exfil.pcap`, was analyzed using Wireshark and `tshark` on
 
 Initial filtering of DNS traffic was done using the following command:
 
-
 tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name
 
 ## DNS Query Analysis
@@ -33,19 +36,19 @@ The packet capture file `dns_exfil.pcap` was analyzed using `tshark` to extract 
 
 The following command was used to extract all DNS query names from the capture:
 
-
 tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name > queries.txt
 
 <p align="center">
-  <img src="../assets/dns_query1" alt="TShark Output1" width="700"/>
+  <img src="../assets/dns_query1.png" alt="TShark Output1" width="700"/>
 </p>
 
 This command reads the dns_exfil.pcap file using -r, applies a display filter -Y to include only DNS queries (dns.qry.name), outputs only the DNS query name field `-e dns.qry.name`, and saves the output to queries.txt.
 
 To view the extracted DNS queries:
 
+
 <p align="center">
-  <img src="../assets/dns_query2" alt="TShark Output2" width="700"/>
+  <img src="../assets/dns_query2.png" alt="TShark Output2" width="700"/>
 </p>
 
 Each query targets the domain crazzyc4t.com, but the subdomain appears to be Base64-encoded. The encoded string Q1RGe1RVTk4zTEwxTkdfRE5TX0wxSzNfNF9QUjB9 is likely the exfiltrated payload embedded within DNS queries.
@@ -53,7 +56,7 @@ Each query targets the domain crazzyc4t.com, but the subdomain appears to be Bas
 To decode the string and verify the contents, the following command was executed:
 
 <p align="center">
-  <img src="../assets/base64_decode" alt="base64 decode" width="700"/>
+  <img src="../assets/base64_decode.png" alt="base64 decode" width="700"/>
 </p>
 
 This confirms that the attacker used DNS tunneling to exfiltrate data, embedding a Base64-encoded flag in the subdomain of a DNS query to an external, attacker-controlled domain. This method allows bypassing network monitoring tools that do not deeply inspect DNS payloads.
@@ -65,7 +68,7 @@ To determine which machine on the network was responsible for the DNS exfiltrati
 Using Wireshark, I examined packet number 1 in the capture. This packet is a standard DNS query requesting the A record for the suspicious domain:
 
 <p align="center">
-  <img src="../assets/attacker_ip" alt="wireshark output3" width="700"/>
+  <img src="../assets/attacker_ip.png" alt="wireshark output3" width="700"/>
 </p>
 
 The key information from the packet is:
@@ -79,6 +82,5 @@ This tells us that the machine with IP address `192.168.1.74` is initiating the 
 
 Therefore, based on the packet details and query behavior, the exfiltrating host is:
 192.168.1.74
-
 
 This IP represents the compromised internal system used by the attacker to tunnel data out of the network via DNS requests.
