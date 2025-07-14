@@ -6,6 +6,13 @@ tags: [dns, exfiltration, wireshark, tshark, ctf]
 ---
 # DNS Exfiltration Analysis
 
+
+<p align="center">
+  <img src="../assets/dns_exfiltration/dns_tunnelling.png" alt="TShark Output4" width="700"/>
+</p>
+
+[Learn more about DNS tunneling detection](https://fidelissecurity.com/threatgeek/learn/dns-tunneling-detection/)
+
 ## Introduction
 
 DNS is a foundational internet protocol used to resolve domain names into IP addresses. However, due to its widespread trust and typically unmonitored nature, DNS is also a prime target for data exfiltration. In DNS tunneling, attackers encode and embed data within DNS queries to bypass firewalls and network monitoring systems.
@@ -22,11 +29,9 @@ The capture file, `dns_exfil.pcap`, was analyzed using Wireshark and `tshark` on
 
 Initial filtering of DNS traffic was done using the following command:
 
-
 ```bash
 tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name
 ```
-
 
 DNS Query Analysis
 
@@ -37,7 +42,6 @@ The following command was used to extract all DNS query names from the capture:
 ```bash
 tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name > queries.txt
 ```
-
 
 <p align="center">
   <img src="../assets/dns_exfiltration/dns_query1.png" alt="TShark Output1" width="700"/>
@@ -70,7 +74,6 @@ Using Wireshark, I examined packet number 1 in the capture. This packet is a sta
 <p align="center">
   <img src="../assets/dns_exfiltration/attacker_ip.png" alt="wireshark output3" width="700"/>
 </p>
-
 
 The key information from the packet is:
 

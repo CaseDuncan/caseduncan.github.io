@@ -5,6 +5,13 @@ date: 2025-07-10
 category: Networking
 tags: [WPA handshake, Deauthentication, WiFi attacks, aircrack-ng, tshark]
 ---
+
+
+<p align="center">
+  <img src="../assets/wpalab/wifi.jpg" alt="TShark Output1" width="700"/>
+</p>
+
+
 ## Introduction
 
 In this lab, we analyze a captured WPA handshake `wpa.cap` to demonstrate the process of cracking a Wi-Fi password using dictionary-based attacks. WPA2-PSK (Wi-Fi Protected Access) secures wireless networks using pre-shared keys. However, if an attacker captures the 4-way handshake, the password can be brute-forced using a wordlist.
