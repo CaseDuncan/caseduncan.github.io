@@ -1,7 +1,4 @@
 ---
-
-
----
 title: "WIFI Password Cracking"
 
 date: 2025-07-10
@@ -75,3 +72,46 @@ Run the command: aircrack-ng -w /usr/share/wordlists/rockyou.txt -b 00:0d:93:eb:
 Password Recovered ✅
 
 ### 🔐 Cracked Wi-Fi Password: biscotte
+
+## 🛡️ Mitigation Tips
+
+To protect wireless networks from attacks like WPA handshake capture and password cracking, the following best practices should be implemented:
+
+### 🔑 1. Use Strong, Complex Passwords
+Avoid common passwords that appear in public wordlists (like `rockyou.txt`). A secure WPA2 password should:
+- Be at least **12–16 characters**
+- Include **uppercase**, **lowercase**, **numbers**, and **symbols**
+- Avoid dictionary words or personal information
+
+### 🔄 2. Rotate Wi-Fi Credentials Periodically
+Change Wi-Fi passwords regularly, especially after employee turnover or suspicious activity.
+
+### 🛰️ 3. Use WPA3 Where Possible
+Upgrade your hardware to support **WPA3**, which offers stronger protection against offline dictionary attacks using **SAE (Simultaneous Authentication of Equals)**.
+
+### 🚫 4. Monitor for Rogue Devices & Deauth Attacks
+Use wireless intrusion detection systems (WIDS) to detect:
+- Repeated deauthentication frames
+- Rogue access points mimicking your SSID
+- Suspicious MAC addresses attempting handshake captures
+
+### 📶 5. Disable WPS (Wi-Fi Protected Setup)
+WPS is vulnerable to brute-force attacks and should be disabled on all routers and access points.
+
+### 🧰 6. Employ Network Segmentation
+Separate your wireless networks (e.g., guest vs. internal) to limit exposure in case of compromise.
+
+---
+
+_Implementing these practices significantly reduces the risk of Wi-Fi password cracking and strengthens your network's overall security posture._
+
+
+## 📚 Further Reading
+
+If you’d like to explore more about wireless security and WPA attacks, check out these resources:
+
+- 🔐 [Aircrack-ng Official Documentation](https://www.aircrack-ng.org/documentation.html)
+- 📖 [Wi-Fi Security Guide (OWASP)](https://owasp.org/www-project-mobile-security-testing-guide/stable/0x05d-Testing-Network-Communication.html)
+- 📺 [WPA/WPA2 Cracking Video Tutorial (YouTube)](https://www.youtube.com/watch?v=RZ1SnTtuSXQ)
+
+
