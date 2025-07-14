@@ -1,4 +1,4 @@
-<img width="911" height="457" alt="image" src="https://github.com/user-attachments/assets/f2052e34-b43d-4e4c-8ec4-1d4b9d1ea184" />---
+---
 title: "DNS Exfiltration"
 date: 2025-07-14
 category: Cybersecurity
