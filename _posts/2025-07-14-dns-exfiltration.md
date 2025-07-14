@@ -22,15 +22,22 @@ The capture file, `dns_exfil.pcap`, was analyzed using Wireshark and `tshark` on
 
 Initial filtering of DNS traffic was done using the following command:
 
-`tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name`
 
-## DNS Query Analysis
+```bash
+tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name
+```
+
+
+DNS Query Analysis
 
 The packet capture file `dns_exfil.pcap` was analyzed using `tshark` to extract DNS query names. These queries revealed a suspicious pattern involving encoded subdomains, likely used for data exfiltration.
 
 The following command was used to extract all DNS query names from the capture:
 
-`tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name > queries.txt`
+```bash
+tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name > queries.txt
+```
+
 
 <p align="center">
   <img src="../assets/dns_exfiltration/dns_query1.png" alt="TShark Output1" width="700"/>

@@ -2,11 +2,9 @@
 title: "WIFI Password Cracking"
 
 date: 2025-07-10
-category: Cybersecurity
+category: Networking
 tags: [WPA handshake, Deauthentication, WiFi attacks, aircrack-ng, tshark]
-
 ---
-
 ## Introduction
 
 In this lab, we analyze a captured WPA handshake `wpa.cap` to demonstrate the process of cracking a Wi-Fi password using dictionary-based attacks. WPA2-PSK (Wi-Fi Protected Access) secures wireless networks using pre-shared keys. However, if an attacker captures the 4-way handshake, the password can be brute-forced using a wordlist.
@@ -35,16 +33,13 @@ We need the BSSID (MAC address) of the access point (AP) that sent the beacon fr
 Run the command:  tshark -r wpa.cap -Y "wlan.fc.type_subtype == 0x08" -T fields -e wlan.bssid
 ```
 
-
 * `-r wpa.cap`: Reads the capture file.
 * `-Y "wlan.fc.type_subtype == 0x08"`: Filters for beacon frames which advertise networks.
 * `-T fields -e wlan.bssid`: Extracts the BSSID field from those frames.
 
-
 ![TShark Output1](../assets/wpalab/BSSID.png)
 
 `00:0d:93:eb:b0:8c`: This is the BSSID of the target Wi-Fi access point. We will use this MAC address when running  `aircrack-ng` to crack the password.
-
 
 ## 3.Cracking the WPA Password with `aircrack-ng`
 
@@ -54,16 +49,13 @@ With the handshake verified and the BSSID extracted, we can now attempt to brute
 Run the command: aircrack-ng -w /usr/share/wordlists/rockyou.txt -b 00:0d:93:eb:b0:8c wpa.cap
 ```
 
-
 * `-w /usr/share/wordlists/rockyou.txt` : specifies the wordlist `rockyou.txt` used to try possible passwords.
 * `-b 00:0d:93:eb:b0:8c`: targets the access point identified by its BSSID (MAC address).
 * `wpa.cap` : the capture file containing the WPA handshake.
 
-
 <p align="center">
   <img src="../assets/wpalab/crack1.png" alt="TShark Output1" width="700"/>
 </p>
-
 
 <p align="center">
   <img src="../assets/wpalab/crack2.png" alt="TShark Output1" width="700"/>
@@ -71,30 +63,35 @@ Run the command: aircrack-ng -w /usr/share/wordlists/rockyou.txt -b 00:0d:93:eb:
 
 Password Recovered ✅
 
-### Cracked Wi-Fi Password: biscotte 🔐 
+### Cracked Wi-Fi Password: biscotte 🔐
 
 ## Mitigation Tips
 
 To protect wireless networks from attacks like WPA handshake capture and password cracking, the following best practices should be implemented:
 
 ### 1. Use Strong, Complex Passwords
+
 Avoid common passwords that appear in public wordlists like `rockyou.txt`. A secure WPA2 password should:
+
 - Be at least **12–16 characters**
 - Include **uppercase**, **lowercase**, **numbers**, and **symbols**
 - Avoid dictionary words or personal information
 
 ### 2. Rotate Wi-Fi Credentials Periodically
+
 Change Wi-Fi passwords regularly, especially after employee turnover or suspicious activity.
 
 ### 3. Monitor for Rogue Devices & Deauth Attacks
+
 Use wireless intrusion detection systems (WIDS) to detect:
+
 - Repeated deauthentication frames
 - Rogue access points mimicking your SSID
 - Suspicious MAC addresses attempting handshake captures
 
 ### 4. Disable WPS (Wi-Fi Protected Setup)
-WPS is vulnerable to brute-force attacks and should be disabled on all routers and access points.
 
+WPS is vulnerable to brute-force attacks and should be disabled on all routers and access points.
 
 ## 📚 Further Reading
 
@@ -103,5 +100,3 @@ If you’d like to explore more about wireless security and WPA attacks, check o
 - 🔐 [Aircrack-ng Official Documentation](https://www.aircrack-ng.org/documentation.html)
 - 📖 [Wi-Fi Security Guide (OWASP)](https://owasp.org/www-project-mobile-security-testing-guide/stable/0x05d-Testing-Network-Communication.html)
 - 📺 [WPA/WPA2 Cracking Video Tutorial (YouTube)](https://www.youtube.com/watch?v=RZ1SnTtuSXQ)
-
-
