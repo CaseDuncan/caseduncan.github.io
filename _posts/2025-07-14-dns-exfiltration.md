@@ -13,11 +13,6 @@ DNS is a foundational internet protocol used to resolve domain names into IP add
 
 This post documents the forensic analysis of a network capture file (`dns_exfil.pcap`) containing suspicious DNS traffic. The objective is to investigate signs of exfiltration, identify the compromised internal host, reconstruct the exfiltrated data, and determine the attacker's infrastructure to solve ctf challenges.
 
----
-
-<p align="center">
-  <img src="../assets/tunnel" alt="tunnel" width="700"/>
-</p>
 
 ## PCAP Overview
 
