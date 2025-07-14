@@ -63,6 +63,7 @@ This confirms that the attacker used DNS tunneling to exfiltrate data, embedding
 To determine which machine on the network was responsible for the DNS exfiltration, I inspected the source IP address of the DNS queries sent to the external domain `crazzyc4t.com`.
 
 Using Wireshark, I examined packet number 1 in the capture. This packet is a standard DNS query requesting the A record for the suspicious domain:
+
 <p align="center">
   <img src="../assets/attacker_ip" alt="wireshark output" width="700"/>
 </p>
