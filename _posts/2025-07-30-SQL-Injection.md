@@ -1,7 +1,7 @@
 ---
-title: SQL Injection
+title: "SQL Injection"
 date: 2025-07-27  
-category: Database Management.  
+category: Database Management
 tags: [SQL, DBMS, SQL Injection, nmap, ctf]
 
 ---
