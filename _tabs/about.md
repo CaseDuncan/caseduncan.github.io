@@ -3,9 +3,9 @@
 icon: fas fa-info-circle
 order: 4
 ---
-# 👋 About Me
+# About Me
 
-Hi, I'm Duncan, a Tech Enthusiast, Software Developer, and Cybersecurity Student based in Kenya. I love exploring how technology works from building applications to analyzing network traffic and solving real-world security challenges.
+Hi, I'm Duncan, a Tech Enthusiast, Software Developer, and Ethical Hacker. I love exploring how technology works from building applications to analyzing network traffic and solving real-world security challenges.
 
 ---
 
