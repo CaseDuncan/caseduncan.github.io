@@ -8,7 +8,7 @@ tags: [WPA handshake, Deauthentication, WiFi attacks, aircrack-ng, tshark]
 
 
 <p align="center">
-  <img src="../assets/wpalab/wifi.jpg" alt="TShark Output1" width="700"/>
+  <img src="/assets/wpalab/wifi.jpg" alt="TShark Output1" width="700"/>
 </p>
 
 
@@ -27,7 +27,7 @@ run the command: `tshark -r wpa.cap -Y "eapol"`
 This filters the packet capture for only EAPOL packets. The output shows the messages exchanged between the access point and the  client device:
 
 <p align="center">
-  <img src="../assets/wpalab/wpa1.png" alt="TShark Output1" width="700"/>
+  <img src="/assets/wpalab/wpa1.png" alt="TShark Output1" width="700"/>
 </p>
 
 From the screenshot above, at least 3 of the 4 required EAPOL packets `Message 1`, `2`, and `3`. This confirms that the WPA handshake has been successfully captured, and we can go ahead and try to crack the password.
@@ -44,7 +44,7 @@ Run the command:  tshark -r wpa.cap -Y "wlan.fc.type_subtype == 0x08" -T fields 
 * `-Y "wlan.fc.type_subtype == 0x08"`: Filters for beacon frames which advertise networks.
 * `-T fields -e wlan.bssid`: Extracts the BSSID field from those frames.
 
-![TShark Output1](../assets/wpalab/BSSID.png)
+ <img src="/assets/wpalab/BSSID.png" alt="BSSID" width="700"/>
 
 `00:0d:93:eb:b0:8c`: This is the BSSID of the target Wi-Fi access point. We will use this MAC address when running  `aircrack-ng` to crack the password.
 
@@ -61,14 +61,14 @@ Run the command: aircrack-ng -w /usr/share/wordlists/rockyou.txt -b 00:0d:93:eb:
 * `wpa.cap` : the capture file containing the WPA handshake.
 
 <p align="center">
-  <img src="../assets/wpalab/crack1.png" alt="TShark Output1" width="700"/>
+  <img src="/assets/wpalab/crack1.png" alt="TShark Output1" width="700"/>
 </p>
 
 <p align="center">
-  <img src="../assets/wpalab/crack2.png" alt="TShark Output1" width="700"/>
+  <img src="/assets/wpalab/crack2.png" alt="TShark Output1" width="700"/>
 </p>
 
-Password Recovered ✅
+Password Recovered 
 
 ### Cracked Wi-Fi Password: biscotte 🔐
 
@@ -100,10 +100,4 @@ Use wireless intrusion detection systems (WIDS) to detect:
 
 WPS is vulnerable to brute-force attacks and should be disabled on all routers and access points.
 
-## 📚 Further Reading
 
-If you’d like to explore more about wireless security and WPA attacks, check out these resources:
-
-- 🔐 [Aircrack-ng Official Documentation](https://www.aircrack-ng.org/documentation.html)
-- 📖 [Wi-Fi Security Guide (OWASP)](https://owasp.org/www-project-mobile-security-testing-guide/stable/0x05d-Testing-Network-Communication.html)
-- 📺 [WPA/WPA2 Cracking Video Tutorial (YouTube)](https://www.youtube.com/watch?v=RZ1SnTtuSXQ)

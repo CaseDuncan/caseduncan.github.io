@@ -33,9 +33,7 @@ To begin the assessment, I performed an Nmap scan on the target host to identify
 ```bash
 nmap -sV 10.6.6.12
 ```
-<p align="center">
-  <img src="../assets/SQLi/discovery_scan.png" alt="nmap_scan" width="700"/>
-</p>
+<img src="/assets/SQLi/discovery_scan.png" alt="nmap_scan" width="700"/>
 
 The scan revealed that port 3000 is open and running a Node.js Express framework web service. This provided the first indication of where to focus further testing, as web applications are often prime targets for SQL injection attacks.
 
@@ -55,13 +53,13 @@ SQLMap confirmed that the backend database is **SQLite** and that the web applic
 Due to SQLite limitations, it is not possible to enumerate databases directly. However, SQLMap was able to identify **injection points** and log the session for further exploration.
 
 The tool reported:
-<p align="center">
-  <img src="../assets/SQLi/sqlmap1.png" alt="sqlmap1" width="700"/>
-</p>
 
-<p align="center">
-  <img src="../assets/SQLi/sqlmap2.png" alt="sqlmap2" width="700"/>
-</p>
+<img src="/assets/SQLi/sqlmap1.png" alt="sqlmap1" width="700"/>
+
+
+
+<img src="/assets/SQLi/sqlmap2.png" alt="sqlmap2" width="700"/>
+
 ### Table Enumeration
 
 After confirming the SQL injection vulnerability, the next step was to enumerate the tables in the SQLite database. This was done using SQLMap with the following command:
@@ -69,18 +67,18 @@ After confirming the SQL injection vulnerability, the next step was to enumerate
 ```bash
 sqlmap -u "http://10.6.6.12:3000/rest/products/search?q=test" --tables --level=5 --risk=3 --random-agent
 ```
-<p align="center">
-  <img src="../assets/SQLi/sqlmap3.png" alt="sqlmap3" width="700"/>
-</p>
+
+  <img src="/assets/SQLi/sqlmap3.png" alt="sqlmap3" width="700"/>
+
 The --tables option lists all available tables in the database.
 
 --level=5 and --risk=3 increase the depth and aggressiveness of testing.
 
 --random-agent randomizes the User-Agent to reduce the chance of detection.
 The output revealed 21 tables, including:
-<p align="center">
-  <img src="../assets/SQLi/sqlmap4.png" alt="sqlmap4" width="700"/>
-</p>
+
+  <img src="/assets/SQLi/sqlmap4.png" alt="sqlmap4" width="700"/>
+
 
 These tables may contain sensitive data such as user accounts, payment information, and feedback, which could potentially be exploited if proper security measures are not in place.
 
@@ -91,9 +89,9 @@ Before extracting data, it is often useful to first check the columns present in
 ```bash
 sqlmap -u "http://10.6.6.12:3000/rest/products/search?q=test" -T Users --columns --level=5 --risk=3 --random-agent
 ```
-<p align="center">
- <img src="../assets/SQLi/users_columns.png" alt="users_columns" width="700"/>
-</p>
+
+ <img src="/assets/SQLi/users_columns.png" alt="users_columns" width="700"/>
+
 
 ### Extracting Sensitive User Data
 
@@ -108,9 +106,8 @@ sqlmap -u "http://10.6.6.12:3000/rest/products/search?q=test" -T Users -C email,
 
 -T Users → targets the Users table.
 
-<p align="center">
- <img src="../assets/SQLi/hashes.png" alt="hashes" width="700"/>
-</p>
+ <img src="/assets/SQLi/hashes.png" alt="hashes" width="700"/>
+
 
 ## Password Cracking
 
@@ -129,9 +126,8 @@ hashcat -m 0 -a 0 -O hashes.txt /usr/share/wordlists/rockyou.txt --show
 
 --show displays only the successfully cracked hashes.
 
-<p align="center">
- <img src="../assets/SQLi/cracked_passwords.png" alt="cracked_passwords" width="700"/>
-</p>
+<img src="/assets/SQLi/cracked_passwords.png" alt="cracked_passwords" width="700"/>
+
 
 
 ## SQL Injection Mitigation
