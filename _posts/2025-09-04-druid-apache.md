@@ -5,8 +5,6 @@ category: Cybersecurity
 tags: [Apache-Druid, Metasploit, Enumeration]  
 
 ---
-
-
 ## Service Enumeration with Nmap
 
 I begun assessment with an Nmap service and version detection scan against the target host 10.129.233.32. The scan revealed several open ports, including SSH on port 22 and multiple web services running on ports 8081, 8082, 8083, and 8888. Each of these web services identified itself as running under Jetty, and further inspection of the HTTP titles confirmed that they were part of an Apache Druid deployment. One key detail was that port 8090, typically used by the Druid Overlord service, was not accessible. This suggested that not all components of Druid were exposed externally, which would influence our choice of exploit.

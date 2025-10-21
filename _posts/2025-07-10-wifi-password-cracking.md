@@ -7,9 +7,8 @@ tags: [WPA handshake, Deauthentication, WiFi attacks, aircrack-ng, tshark]
 ---
 
 
-<p align="center">
-  <img src="/assets/wpalab/wifi.jpg" alt="TShark Output1" width="700"/>
-</p>
+<img src="/assets/wpalab/wifi.jpg" alt="TShark Output1" width="700"/>
+
 
 
 ## Introduction
@@ -26,9 +25,9 @@ run the command: `tshark -r wpa.cap -Y "eapol"`
 
 This filters the packet capture for only EAPOL packets. The output shows the messages exchanged between the access point and the  client device:
 
-<p align="center">
-  <img src="/assets/wpalab/wpa1.png" alt="TShark Output1" width="700"/>
-</p>
+
+<img src="/assets/wpalab/wpa1.png" alt="TShark Output1" width="700"/>
+
 
 From the screenshot above, at least 3 of the 4 required EAPOL packets `Message 1`, `2`, and `3`. This confirms that the WPA handshake has been successfully captured, and we can go ahead and try to crack the password.
 
@@ -60,13 +59,10 @@ Run the command: aircrack-ng -w /usr/share/wordlists/rockyou.txt -b 00:0d:93:eb:
 * `-b 00:0d:93:eb:b0:8c`: targets the access point identified by its BSSID (MAC address).
 * `wpa.cap` : the capture file containing the WPA handshake.
 
-<p align="center">
   <img src="/assets/wpalab/crack1.png" alt="TShark Output1" width="700"/>
-</p>
 
-<p align="center">
   <img src="/assets/wpalab/crack2.png" alt="TShark Output1" width="700"/>
-</p>
+
 
 Password Recovered 
 

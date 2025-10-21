@@ -43,9 +43,9 @@ The following command was used to extract all DNS query names from the capture:
 tshark -r dns_exfil.pcap -Y "dns.qry.name" -T fields -e dns.qry.name > queries.txt
 ```
 
-<p align="center">
+
   <img src="/assets/dns_exfiltration/dns_query1.png" alt="TShark Output1" width="700"/>
-</p>
+
 
 This command reads the dns_exfil.pcap file using -r, applies a display filter -Y to include only DNS queries (dns.qry.name), outputs only the DNS query name field `-e dns.qry.name`, and saves the output to queries.txt.
 
@@ -71,9 +71,9 @@ To determine which machine on the network was responsible for the DNS exfiltrati
 
 Using Wireshark, I examined packet number 1 in the capture. This packet is a standard DNS query requesting the A record for the suspicious domain:
 
-<p align="center">
-  <img src="/assets/dns_exfiltration/attacker_ip.png" alt="wireshark output3" width="700"/>
-</p>
+
+<img src="/assets/dns_exfiltration/attacker_ip.png" alt="wireshark output3" width="700"/>
+
 
 The key information from the packet is:
 
